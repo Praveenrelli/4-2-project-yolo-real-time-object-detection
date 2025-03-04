@@ -3,6 +3,7 @@
 !apt-get -qq install -y libfluidsynth1
 !apt-get install
 !pip install ultralytics
+
 import gradio as gr
 import cv2
 import tempfile
@@ -166,3 +167,39 @@ with gradio_app:
             app()
 if __name__ == '__main__':
     gradio_app.launch()
+
+from flask import Flask, request, jsonify, render_template
+import gradio as gr
+import threading
+
+app = Flask(__name__)
+
+# Define a function to run Gradio in a separate thread
+def run_gradio():
+    gradio_app.launch(server_name="0.0.0.0", server_port=7860, share=False)
+
+# Start Gradio in a separate thread
+threading.Thread(target=run_gradio, daemon=True).start()
+
+@app.route('/')
+def home():
+    return render_template("index.html", gradio_url="http://localhost:7860")
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    data = request.json
+    image = data.get("image")
+    model_id = data.get("model_id", "yolov10m")
+    image_size = data.get("image_size", 640)
+    conf_threshold = data.get("conf_threshold", 0.25)
+
+    # Call the Gradio app programmatically
+    try:
+        response = gr.Interface.load("http://localhost:7860").predict(image, None, model_id, image_size, conf_threshold)
+        return jsonify({"prediction": response})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+if __name__ == '__main__':
+    app.run(debug=True, port=5000)
+
