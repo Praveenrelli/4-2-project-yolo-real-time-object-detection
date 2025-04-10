@@ -1,13 +1,13 @@
 import gradio as gr
 import cv2
 import tempfile
-from ultralytics import YOLO  # Import YOLO instead of YOLOv10
+from ultralytics import YOLO 
 
 
 
 def yolov10_inference(image, video, model_id, image_size, conf_threshold):
-    # Use the YOLO class and specify the YOLOv10 model architecture
-    model = YOLO(model_id)  # Removed 'jameslahm/' prefix
+   
+    model = YOLO(model_id)  
     if image:
         results = model.predict(source=image, imgsz=image_size, conf=conf_threshold)
         annotated_image = results[0].plot()
@@ -38,7 +38,10 @@ def yolov10_inference(image, video, model_id, image_size, conf_threshold):
             (frame_width, frame_height)
         )
 
-        # Process the video frame by frame
+        # Process the video frame by frame with frame skipping
+        frame_skip = 2 # Set frame_skip to 0 to process every frame and maintain the same speed
+        frame_count = 0
+
         while True:
             ret, frame = cap.read()
             if not ret:
@@ -50,6 +53,7 @@ def yolov10_inference(image, video, model_id, image_size, conf_threshold):
 
             # Write the annotated frame to the output video
             out.write(annotated_frame)
+            frame_count += 1
 
         # Release resources
         cap.release()
@@ -170,12 +174,13 @@ with gradio_app:
     gr.HTML(
         """
         <h3 style='text-align: center'>
-        <a href='https://arxiv.org/abs/2405.14458' target='_blank'>PraveenRelli</a> | <a href='https://github.com/Praveenrelli/4-2-project-yolo-real-time-object-detection/blob/main/MAINCODE' target='_blank'>github</a>
+        <a href='https://github.com/Praveenrelli/4-2-project-yolo-real-time-object-detection/blob/main/doc.pdf' target='_blank'>PraveenRelli</a> |
+        <a href='https://github.com/Praveenrelli/4-2-project-yolo-real-time-object-detection/blob/main/MAINCODE' target='_blank'>github</a>
         </h3>
         """)
     with gr.Row():
         with gr.Column():
             app()
 
-if __name__ == '__main__':  
-    gradio_app.launch(share=True)
+if __name__ == '__main__':
+    gradio_app.launch( share=True )
