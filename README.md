@@ -1,5 +1,3 @@
-YOLO REAL TIME OBJECT DETECTION
-
 ## YOLO Real Time Object Detection
 
 This project implements a real time object detection via video, webcam and image detection using YOLO algorithm. YOLO is a object detection algorithm which stand for You Only Look Once. I've implemented the algorithm from scratch in Python using pre-trained weights.Real time detection can be use via command prompt or GUI.
