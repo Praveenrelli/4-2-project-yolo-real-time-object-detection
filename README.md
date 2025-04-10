@@ -5,13 +5,13 @@ This project implements a real time object detection via video, webcam and image
 <table>
   <tbody>
 	<tr align="center">
-		<th><strong>A USA Real-Time Road Detection</strong></th>
+		<th><strong>Real-Time Road Detection-1</strong></th>
 	</tr>
 	<tr align="center">
 		<td><img src="https://github.com/muhammadshiraz/YOLO-Real-Time-Object-Detection/blob/master/doc/detector1.gif"></td>		
 	</tr>
 	<tr align="center">
-		<th><strong>A UK Real-Time Road Detection</strong></th>
+		<th><strong>Real-Time Road Detection-2</strong></th>
 	</tr>
 	<tr align="center">
 		<td><img src="https://github.com/muhammadshiraz/YOLO-Real-Time-Object-Detection/blob/master/doc/detector2.gif"></td>
