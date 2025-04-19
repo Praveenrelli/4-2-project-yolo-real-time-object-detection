@@ -32,6 +32,7 @@ OpenCV dnn module supports running inference on pre-trained deep learning models
 
 ## Requirement
 <ul>
+<li>gradio</li>	
 <li>OpenCV 4.2.0</li>
 <li>Python 3.6</li>
 </ul>
